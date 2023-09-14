@@ -117,7 +117,7 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     self.run()
 
-
+wrtrdstsdg
         def show_menu(self):
                 self.screen.fill((255, 255, 255))
                 half_screen_height = SCREEN_HEIGHT // 2
