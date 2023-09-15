@@ -2,10 +2,9 @@ import pygame
 
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from dino_runner.components.dinosaur import Dinosaur
-from dino_runner.components.obstacles.manager import Obstacle_Manager
-from dino_runner.components.powerups.power_up.power_up_manager import PowerUpManager
-
-
+from dino_runner.components.obstacles.obstacle_maneger import ObstacleManager
+from dino_runner.utils.text_utils import draw_message_component
+from dino_runner.components.powerups.power_up_manager import PowerUpManager
 
 class Game:
     def __init__(self):
@@ -22,7 +21,7 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 380
         self.player = Dinosaur()
-        self.obstacle_manager = Obstacle_Manager()
+        self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager
     
     def execute(self):
@@ -98,9 +97,9 @@ class Game:
                     time_to_show = round((self.player.power_up_time - pygame.time.get_ticks())/ 100, 2)
                     if time_to_show >= 0:
                         draw_message_component(
-                            f"{self.player.type.capitalize()} disponivel por {time_to_show} segundos"
+                            f"{self.player.type.capitalize()} disponivel por {time_to_show} segundos",
                             self.screen,
-                            front_size = 18
+                            front_size = 18,
                             pos_x_center = 500,
                             pos_y_center = 40
                         )
@@ -117,7 +116,6 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     self.run()
 
-wrtrdstsdg
         def show_menu(self):
                 self.screen.fill((255, 255, 255))
                 half_screen_height = SCREEN_HEIGHT // 2
@@ -140,7 +138,7 @@ wrtrdstsdg
                         pos_y_center = half_screen_height - 100
                     )
 
-                    self.screen.blit(ICON, (half_screen_width - 40, half_screen_height - 30))
+                    self.screen.blit(ICON, (hals_screen_width - 40, half_screen_height - 30))
                     
                 pygame.display.flip()
                 self.handle_events_on_menu()
