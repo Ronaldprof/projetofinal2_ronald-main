@@ -24,8 +24,9 @@ class ObstacleManager:
                     game.playing = False
                     game.death_count += 1 
                     break
-            else:
-                self.obstacles.remove(obstacle)
+                else:
+                    self.obstacles.remove(obstacle)
+    
     def reset_obstacles(self):
         self.obstacles = []
 

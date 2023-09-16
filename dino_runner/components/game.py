@@ -42,7 +42,7 @@ class Game:
         while self.playing:
             self.events()
             self.update()
-            self.draw
+            self.draw ()
 
     def events(self):
         for event in pygame.event.get():
