@@ -1,5 +1,4 @@
 import pygame 
-
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
@@ -43,7 +42,7 @@ class Game:
         while self.playing:
             self.events()
             self.update()
-            self.draw()
+            self.draw
 
     def events(self):
         for event in pygame.event.get():
@@ -71,7 +70,7 @@ class Game:
         self.obstacle_manager.draw(self.screen)
         self.draw_score()
         self.draw_power_up_time()
-        self.powe_up_manager.draw(self.screen)
+        self.power_up_manager.draw(self.screen)
         pygame.display.update()
         pygame.display.flip()
         
@@ -79,6 +78,7 @@ class Game:
         image_width = BG.get_width()
         self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))
         self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
+       
         if self.x_pos_bg <= - image_width:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
@@ -133,7 +133,7 @@ class Game:
 
 
             draw_message_component(
-                f"Contagem de vidas: {self.death_cout} ",
+                f"Contagem de vidas: {self.death_count} ",
                 self.screen,
                 pos_y_center = half_screen_height - 100
             )

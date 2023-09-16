@@ -14,8 +14,9 @@ class PowerUp(Sprite):
 
     def update(self, game_speed, power_ups): #fazer update 
         self.rect.x -= game_speed
-        if self.rect.x <- self.rect.widht:
+       
+        if self.rect.x < -self.rect.right:
             power_ups.pop() 
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)  
+        screen.blit(self.image, self.rect)
