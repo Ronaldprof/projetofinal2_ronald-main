@@ -92,20 +92,20 @@ class Game:
             pos_y_center = 50
         )
 
-    def draw_power_up_time(self):
+    def draw_power_up_time(self): #tempo para mostrar
         if self.player.has_power_up:
-                time_to_show = round((self.player.power_up_time - pygame.time.get_ticks())/ 100, 2)
-                if time_to_show >= 0:
-                    draw_message_component(
-                        f"{self.player.type.capitalize()} disponivel por {time_to_show} segundos",
-                        self.screen,
-                        front_size = 18,
-                        pos_x_center = 500,
-                        pos_y_center = 40
-                    )
-                else:
+            time_to_Show = round((self.player.power_up_timing - pygame.time.get_ticks()) / 1000, 2) # mostra a contagem 
+            if time_to_Show >= 0:
+                draw_message_component(
+                    f"{self.player.type.capitalize()} disponível por  {time_to_Show} segundos",
+                    self.screen,
+                    font_size = 18,
+                    pos_x_center = 500,
+                    pos_y_center = 40
+                )
+            else:
                     self.player.has_power_up = False
-                    self.player.type = DEFAULT_TYPE
+                    self.player.type = DEFAULT_TYPE 
     
     def handle_events_on_menu(self):
         for event in pygame.event.get():

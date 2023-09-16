@@ -12,7 +12,7 @@ class Obstacle(Sprite):
     def update(self, game_speed, obstacles):
         self.rect.x -= game_speed
         
-        if self.rect.x < - self.rect.width:
+        if self.rect.x < - self.rect.width: # alterei o right por width
             obstacles.pop()
             
     def draw(self, screen):
