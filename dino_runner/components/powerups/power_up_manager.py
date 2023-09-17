@@ -1,11 +1,14 @@
 import random
 import pygame
 from dino_runner.components.powerups.shield import Shield
+from dino_runner.utils.constants import POWER_UP_SOUND
 
 class PowerUpManager():
     def __init__(self):
         self.power_ups = []
         self.when_appars = 0
+        self.power_up_sound = POWER_UP_SOUND
+        self.power_up_sound.set_volume(0.5)
 
     def generate_power_up(self, score):
         if len(self.power_ups) == 0 and self.when_appars == score:
@@ -23,6 +26,7 @@ class PowerUpManager():
                 player.type = power_up.type
                 player.power_up_timing = power_up.start_time + (power_up.duration * 1000)
                 self.power_ups.remove(power_up)
+                self.power_up_sound.play()
 
     def draw(self, screen):
         for power_up in self.power_ups:

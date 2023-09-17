@@ -7,7 +7,7 @@ SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 FPS = 30
 IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
-
+SOUND_DIR = os.path.join(os.path.dirname(__file__), "..", "assets","Sounds")
 # Assets Constants
 ICON = pygame.image.load(os.path.join(IMG_DIR, "DinoWallpaper.png"))
 
@@ -71,3 +71,9 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
+
+
+DEATH_SOUND = pygame.mixer.Sound(os.path.join(SOUND_DIR, 'death_sound.wav'))
+JUMP_SOUND = pygame.mixer.Sound(os.path.join(SOUND_DIR, 'jump_sound.wav'))
+SCORE_SOUND = pygame.mixer.Sound(os.path.join(SOUND_DIR, 'score_sound.wav'))
+POWER_UP_SOUND = pygame.mixer.Sound(os.path.join(SOUND_DIR, 'power_up_sound.wav'))

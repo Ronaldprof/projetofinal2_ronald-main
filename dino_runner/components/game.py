@@ -1,13 +1,15 @@
 import pygame 
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
+pygame.init()  # iniciar pygame # 
+pygame.mixer.init() # iniciar msc
+# Precisa ser antes de import pois as variáveis dos sons no arquivo constants precisam do mixer já iniciado. Senão, ocorrerá um erro.
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, SCORE_SOUND
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.utils.text_utils import draw_message_component
 from dino_runner.components.powerups.power_up_manager import PowerUpManager
 
 class Game:
-    def __init__(self):
-        pygame.init()
+    def __init__(self): # costrutor
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -15,6 +17,7 @@ class Game:
         self.playing = False
         self.running = False
         self.score = 0
+        self.record = 0
         self.death_count = 0 
         self.game_speed = 20
         self.x_pos_bg = 0
@@ -22,6 +25,8 @@ class Game:
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
+        self.score_sound = SCORE_SOUND
+        self.score_sound.set_volume(0.3) # VOLUME 30 % do volume original
     
     def execute(self):
         self.running = True
@@ -61,6 +66,7 @@ class Game:
         self.score += 1
         if self.score % 100 == 0:
             self.game_speed +=  5
+            self.score_sound.play() # para iniciar, o son a cada 100 pontos
     
     def draw(self): # tela do jogo
         self.clock.tick(FPS)  
@@ -124,7 +130,7 @@ class Game:
             draw_message_component("Pressione qualquer tecla para iniciar", self.screen)
         
         else:
-            draw_message_component("Pressione qualquer tecla para reniciar", self.screen, pos_y_center = half_screen_height + 140)
+            draw_message_component("Pressione qualquer tecla para reiniciar", self.screen, pos_y_center = half_screen_height + 140)
             draw_message_component(
                 f"Sua pontuaçao: {self.score}",
                 self.screen,
