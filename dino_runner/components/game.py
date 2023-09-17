@@ -67,6 +67,15 @@ class Game:
         if self.score % 100 == 0:
             self.game_speed +=  5
             self.score_sound.play() # para iniciar, o son a cada 100 pontos
+
+    def draw_record(self):
+        draw_message_component(
+        f"Recorde: {self.record}",
+        self.screen,
+        pos_x_center=1000,
+        pos_y_center=80  # Defina a posição Y desejada para o recorde
+    )
+
     
     def draw(self): # tela do jogo
         self.clock.tick(FPS)  
@@ -75,6 +84,7 @@ class Game:
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.draw_score()
+        self.draw_record() 
         self.draw_power_up_time()
         self.power_up_manager.draw(self.screen)
         pygame.display.update()
