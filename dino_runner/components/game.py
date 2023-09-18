@@ -2,7 +2,7 @@ import pygame
 pygame.init()  # iniciar pygame # 
 pygame.mixer.init() # iniciar msc
 # Precisa ser antes de import pois as variáveis dos sons no arquivo constants precisam do mixer já iniciado. Senão, ocorrerá um erro.
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, SCORE_SOUND, CLOUD
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, SCORE_SOUND, CLOUD, GAMER_OVER
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.utils.text_utils import draw_message_component
@@ -72,7 +72,7 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
     def update_score(self):  
         self.score += 1
         if self.score % 100 == 0:
-            self.game_speed +=  5
+            self.game_speed +=  3
             self.score_sound.play() # para iniciar, o son a cada 100 pontos
 
     def draw_record(self):
@@ -86,11 +86,11 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
     
     def draw(self): # tela do jogo
         self.clock.tick(FPS)  
-        self.screen.fill((255, 255, 255))
+        self.screen.fill((41, 217, 245))
         self.draw_blackground()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
-        self .draw_cloud()
+        self.draw_cloud()
         self.draw_score()
         self.draw_record() 
         self.draw_power_up_time()
@@ -152,11 +152,12 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
                 self.run()
 
     def show_menu(self):
-        self.screen.fill((255, 255, 255))
+        self.screen.fill((41, 217, 245))
         half_screen_height = SCREEN_HEIGHT // 2
         hals_screen_width = SCREEN_WIDTH // 2 
         if self.death_count == 0:
             draw_message_component("Pressione qualquer tecla para iniciar", self.screen)
+            draw_message_component("Criador : Ronald luis", self.screen, pos_y_center = half_screen_height + 280, pos_x_center = hals_screen_width - 428)
         
         else:
             draw_message_component("Pressione qualquer tecla para reiniciar", self.screen, pos_y_center = half_screen_height + 140)
@@ -174,6 +175,7 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
             )
 
             self.screen.blit(ICON, (hals_screen_width - 40, half_screen_height - 30))
+            self.screen.blit(GAMER_OVER, (hals_screen_width - 200, half_screen_height - 190))
 
         pygame.display.flip()
         self.handle_events_on_menu()

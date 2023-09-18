@@ -4,7 +4,7 @@ from dino_runner.components.obstacles.cactus import Cactus
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.utils.constants import DEATH_SOUND # importei o death-sound
 
-class ObstacleManager:
+class ObstacleManager: # Esta classe é responsável por gerenciar os obstáculos no jogo.
     def __init__(self):
         self.obstacles = []
         self.death_sound = DEATH_SOUND # declarei
@@ -19,22 +19,22 @@ class ObstacleManager:
         ]
 
         if len(self.obstacles) == 0:
-            self.obstacles.append(obstacle_type[random.randint(0,1)])
+            self.obstacles.append(obstacle_type[random.randint(0,1)]) 
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
                 if not game.player.has_power_up:
                     self.death_sound.play() # toda vez q ele morrer fazer a zuada
                     pygame.time.delay(500)
-                    game.playing = False
+                    game.playing = False # se o jogador tiver com o power up o obstacle e removido
                     game.death_count += 1 
                     break
                 else:
                     self.obstacles.remove(obstacle)
     
     def reset_obstacles(self):
-        self.obstacles = []
+        self.obstacles = [] #redefinir os obstaculos
 
-    def draw(self,screen):
+    def draw(self,screen): 
         for obstacle in self.obstacles:
             obstacle.draw(screen)
