@@ -27,7 +27,7 @@ class PowerUpManager():
                 player.power_up_timing = power_up.start_time + (power_up.duration * 1000)
                 self.power_ups.remove(power_up)
                 self.power_up_sound.play()
-
+                
     def draw(self, screen):
         for power_up in self.power_ups:
             power_up.draw(screen)

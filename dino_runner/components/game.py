@@ -2,13 +2,14 @@ import pygame
 pygame.init()  # iniciar pygame # 
 pygame.mixer.init() # iniciar msc
 # Precisa ser antes de import pois as variáveis dos sons no arquivo constants precisam do mixer já iniciado. Senão, ocorrerá um erro.
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, SCORE_SOUND
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, SCORE_SOUND, CLOUD
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.utils.text_utils import draw_message_component
 from dino_runner.components.powerups.power_up_manager import PowerUpManager
 
-class Game:
+    
+class Game: #class mas importante do jogo conte a logica principal do jogo
     def __init__(self): # costrutor
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
@@ -22,13 +23,15 @@ class Game:
         self.game_speed = 20
         self.x_pos_bg = 0
         self.y_pos_bg = 380
+        self.x_pos_cloud = 0
+        self.y_pos_cloud = 30
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
         self.score_sound = SCORE_SOUND
         self.score_sound.set_volume(0.3) # VOLUME 30 % do volume original
-    
-    def execute(self):
+        
+    def execute(self): # loop responsalvel por ininiar o loop do jg
         self.running = True
         while self.running:
             if not self.playing:
@@ -37,25 +40,29 @@ class Game:
         pygame.display.quit()
         pygame.quit()
     
-    def run(self):
+    def run(self): # metodo chamado quando o jg ta em andamento
         self.playing = True
         self.obstacle_manager.reset_obstacles()
         self.power_up_manager.reset_power_up()
         self.game_speed = 20
+        if self.score > self.record:
+           self.record = self.score
         self.score = 0
+        
+        
 
-        while self.playing:
+        while self.playing: #loop onde events, atualizaçao, e desenhos . 
             self.events()
             self.update()
-            self.draw ()
+            self.draw () 
 
-    def events(self):
-        for event in pygame.event.get():
+    def events(self): #
+        for event in pygame.event.get(): #se o jogador sair do jg  os 2 self ficar false q enterrompe o loop 
             if event.type == pygame.QUIT:
                 self.playing = False
                 self.ruinning = False
             
-    def update(self):
+    def update(self): #atualizaçao do jogador, obstaculos e pontuaçao
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
         self.obstacle_manager.update(self)
@@ -70,7 +77,7 @@ class Game:
 
     def draw_record(self):
         draw_message_component(
-        f"Recorde: {self.record}",
+        f"Record: {self.record}",
         self.screen,
         pos_x_center=1000,
         pos_y_center=80  # Defina a posição Y desejada para o recorde
@@ -83,17 +90,20 @@ class Game:
         self.draw_blackground()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
+        self .draw_cloud()
         self.draw_score()
         self.draw_record() 
         self.draw_power_up_time()
         self.power_up_manager.draw(self.screen)
         pygame.display.update()
         pygame.display.flip()
+        #  dinossauro, obstáculos, plano de fundo, pontuação
         
     def draw_blackground(self):
         image_width = BG.get_width()
         self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))
         self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
+        self
        
         if self.x_pos_bg <= - image_width:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
@@ -123,6 +133,15 @@ class Game:
                     self.player.has_power_up = False
                     self.player.type = DEFAULT_TYPE 
     
+    def draw_cloud(self):
+        image_width = CLOUD.get_width()
+        self.screen.blit(CLOUD, (image_width + self.x_pos_cloud, self.y_pos_cloud))
+        if self.x_pos_cloud <= - image_width:
+            self.screen.blit(CLOUD, (image_width + self.x_pos_cloud, self.y_pos_cloud))
+            self.x_pos_cloud = 1000
+        self.x_pos_cloud -= self.game_speed
+
+
     def handle_events_on_menu(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -155,6 +174,6 @@ class Game:
             )
 
             self.screen.blit(ICON, (hals_screen_width - 40, half_screen_height - 30))
-            
+
         pygame.display.flip()
         self.handle_events_on_menu()
