@@ -2,7 +2,7 @@ import pygame
 pygame.init()  # iniciar pygame # 
 pygame.mixer.init() # iniciar msc
 # Precisa ser antes de import pois as variáveis dos sons no arquivo constants precisam do mixer já iniciado. Senão, ocorrerá um erro.
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, SCORE_SOUND, CLOUD, GAMER_OVER
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, SCORE_SOUND, CLOUD, GAMER_OVER, BART
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.utils.text_utils import draw_message_component
@@ -79,8 +79,8 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
         draw_message_component(
         f"Record: {self.record}",
         self.screen,
-        pos_x_center=1000,
-        pos_y_center=80  # Defina a posição Y desejada para o recorde
+        pos_x_center=1400,
+        pos_y_center=60  # Defina a posição Y desejada para o recorde
     )
 
     
@@ -108,14 +108,14 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
         if self.x_pos_bg <= - image_width:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
-        self.x_pos_bg -= self.game_speed # TROCANDO 
+        self.x_pos_bg -= self.game_speed # TROCANDO
 
     def draw_score(self):
         draw_message_component(
             f"score:{self.score}",
             self.screen,
-            pos_x_center = 1000,
-            pos_y_center = 50
+            pos_x_center = 1400,
+            pos_y_center = 40
         )
 
     def draw_power_up_time(self): #tempo para mostrar
@@ -134,11 +134,15 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
                     self.player.type = DEFAULT_TYPE 
     
     def draw_cloud(self):
-        image_width = CLOUD.get_width()
+        image_width = CLOUD.get_width() 
+        self.screen.blit(CLOUD, (self.x_pos_cloud, self.y_pos_cloud))
         self.screen.blit(CLOUD, (image_width + self.x_pos_cloud, self.y_pos_cloud))
+        self.screen.blit(CLOUD, (300 + self.x_pos_cloud, self.y_pos_cloud))
+        self.screen.blit(CLOUD, ( 600 + self.x_pos_cloud, self.y_pos_cloud))
+        self.screen.blit(CLOUD, ( 900 + self.x_pos_cloud, self.y_pos_cloud))
         if self.x_pos_cloud <= - image_width:
             self.screen.blit(CLOUD, (image_width + self.x_pos_cloud, self.y_pos_cloud))
-            self.x_pos_cloud = 1000
+            self.x_pos_cloud = SCREEN_WIDTH 
         self.x_pos_cloud -= self.game_speed
 
 
@@ -157,8 +161,8 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
         hals_screen_width = SCREEN_WIDTH // 2 
         if self.death_count == 0:
             draw_message_component("Pressione qualquer tecla para iniciar", self.screen)
-            draw_message_component("Criador : Ronald luis", self.screen, pos_y_center = half_screen_height + 280, pos_x_center = hals_screen_width - 428)
-        
+            draw_message_component("Criador : Ronald luis ", self.screen, pos_y_center = half_screen_height + 280, pos_x_center = hals_screen_width - 630)
+            self.screen.blit(BART, (hals_screen_width - 550, half_screen_height + 210))
         else:
             draw_message_component("Pressione qualquer tecla para reiniciar", self.screen, pos_y_center = half_screen_height + 140)
             draw_message_component(
