@@ -24,7 +24,7 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
         self.x_pos_bg = 0
         self.y_pos_bg = 380
         self.x_pos_cloud = 0
-        self.y_pos_cloud = 30
+        self.y_pos_cloud = 20
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
@@ -108,7 +108,7 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
         if self.x_pos_bg <= - image_width:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
-            self.x_pos_bg -= self.game_speed
+        self.x_pos_bg -= self.game_speed # TROCANDO 
 
     def draw_score(self):
         draw_message_component(

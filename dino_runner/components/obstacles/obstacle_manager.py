@@ -17,7 +17,6 @@ class ObstacleManager: # Esta classe é responsável por gerenciar os obstáculo
             Bird(),
 
         ]
-
         if len(self.obstacles) == 0:
             self.obstacles.append(obstacle_type[random.randint(0,1)]) 
         for obstacle in self.obstacles:

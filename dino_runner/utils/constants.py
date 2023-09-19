@@ -4,7 +4,7 @@ import os
 # Global Constants
 TITLE = "Chrome Dino Runner"
 SCREEN_HEIGHT = 600
-SCREEN_WIDTH = 1100
+SCREEN_WIDTH = 1150
 FPS = 30
 IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 SOUND_DIR = os.path.join(os.path.dirname(__file__), "..", "assets","Sounds")
@@ -67,14 +67,13 @@ SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
 HAMMER = pygame.image.load(os.path.join(IMG_DIR, 'Other/hammer.png'))
 
 
-
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
-
+HAMMER_TYPE = "hammer"
 
 DEATH_SOUND = pygame.mixer.Sound(os.path.join(SOUND_DIR, 'death_sound.wav'))
 JUMP_SOUND = pygame.mixer.Sound(os.path.join(SOUND_DIR, 'jump_sound.wav'))
