@@ -4,8 +4,8 @@ from dino_runner.utils.constants import SCREEN_WIDTH
 
 class Obstacle(Sprite):
     def __init__(self, image, type):
-        self.image = image
-        self.type = type
+        self.image = image # Armazena a imagem do power-up.
+        self.type = type # Armazena o tipo de power-up.
         self.rect = self.image[self.type].get_rect()
         self.rect.x = SCREEN_WIDTH
         
@@ -19,4 +19,4 @@ class Obstacle(Sprite):
         screen.blit(self.image[self.type], (self.rect.x, self.rect.y))
     
    
-        
+    

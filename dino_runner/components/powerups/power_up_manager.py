@@ -13,7 +13,7 @@ class PowerUpManager():
         self.power_up_sound.set_volume(0.5)
 
     def generate_power_up(self, score):
-        if len(self.power_ups) == 0 and self.when_appars == score:
+        if len(self.power_ups) == 0 and self.when_appars == score:  #len puxar 
             self.when_appars += random.randint(200, 300)
             choose_power_up = random.randint(0, 1)
             if choose_power_up == 0:

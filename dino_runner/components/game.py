@@ -46,7 +46,7 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
         self.power_up_manager.reset_power_up()
         self.game_speed = 20
         if self.score > self.record:
-           self.record = self.score
+           self.record = self.score # adicionei o record = o score
         self.score = 0
         
         
@@ -100,15 +100,15 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
         #  dinossauro, obstáculos, plano de fundo, pontuação
         
     def draw_blackground(self):
-        image_width = BG.get_width()
+        image_width = BG.get_width() #chao
         self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))
-        self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
+        self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg)) # largura da imagem
         self
        
-        if self.x_pos_bg <= - image_width:
+        if self.x_pos_bg <= - image_width: # se for menor q a largura ela desenha a imagem novamente criar um efeito de deslocamento
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
-        self.x_pos_bg -= self.game_speed # TROCANDO
+        self.x_pos_bg -= self.game_speed # chao andar com o game speed
 
     def draw_score(self):
         draw_message_component(
@@ -118,7 +118,7 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
             pos_y_center = 40
         )
 
-    def draw_power_up_time(self): #tempo para mostrar
+    def draw_power_up_time(self): # mostrar o tempo do power up
         if self.player.has_power_up:
             time_to_Show = round((self.player.power_up_timing - pygame.time.get_ticks()) / 1000, 2) # mostra a contagem 
             if time_to_Show >= 0:
@@ -134,7 +134,7 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
                     self.player.type = DEFAULT_TYPE 
     
     def draw_cloud(self):
-        image_width = CLOUD.get_width() 
+        image_width = CLOUD.get_width() # mecher 
         self.screen.blit(CLOUD, (self.x_pos_cloud, self.y_pos_cloud))
         self.screen.blit(CLOUD, (image_width + self.x_pos_cloud, self.y_pos_cloud))
         self.screen.blit(CLOUD, (300 + self.x_pos_cloud, self.y_pos_cloud))
@@ -146,16 +146,16 @@ class Game: #class mas importante do jogo conte a logica principal do jogo
         self.x_pos_cloud -= self.game_speed
 
 
-    def handle_events_on_menu(self):
+    def handle_events_on_menu(self): # reniciar o jogo
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.playing = False
                 self.running = False
             
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN: # telcado do jg
                 self.run()
 
-    def show_menu(self):
+    def show_menu(self): # tela iniciaç do jogo
         self.screen.fill((41, 217, 245))
         half_screen_height = SCREEN_HEIGHT // 2
         hals_screen_width = SCREEN_WIDTH // 2 
